@@ -34,6 +34,13 @@ app.config(['$routeProvider',
             });
   }])
     .run(function ($rootScope, $location, Data) {
+        $rootScope.logout = function () {
+            Data.get('logout').then(function (results) {
+                Data.toast(results);
+                $location.path('login');
+            });
+        }
+
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.authenticated = false;
             Data.get('session').then(function (results) {
