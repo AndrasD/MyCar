@@ -1,5 +1,5 @@
-app.factory("Data", ['$http', 'toaster',
-    function ($http, toaster) { // This service connects to our REST API
+app.factory("Data", ['$http', 'toaster', function ($http, toaster) { 
+    // This service connects to our REST API
 
         var serviceBase = 'api/v1/';
 
