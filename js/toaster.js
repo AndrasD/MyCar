@@ -14,14 +14,14 @@
  */
 
 angular.module('toaster', ['ngAnimate'])
-.service('toaster', ['$rootScope', function ($rootScope) {
-    this.pop = function (type, title, body, timeout, bodyOutputType) {
-        this.toast = {
-            type: type,
-            title: title,
-            body: body,
-            timeout: timeout,
-            bodyOutputType: bodyOutputType
+       .service('toaster', ['$rootScope', function ($rootScope) {
+        this.pop = function (type, title, body, timeout, bodyOutputType) {
+            this.toast = {
+                type: type,
+                title: title,
+                body: body,
+                timeout: timeout,
+                bodyOutputType: bodyOutputType
         };
         $rootScope.$broadcast('toaster-newToast');
     };
@@ -30,31 +30,30 @@ angular.module('toaster', ['ngAnimate'])
         $rootScope.$broadcast('toaster-clearToasts');
     };
 }])
-.constant('toasterConfig', {
-    'limit': 0,                   // limits max number of toasts 
-    'tap-to-dismiss': true,
-    'newest-on-top': true,
-    //'fade-in': 1000,            // done in css
-    //'on-fade-in': undefined,    // not implemented
-    //'fade-out': 1000,           // done in css
-    // 'on-fade-out': undefined,  // not implemented
-    //'extended-time-out': 1000,    // not implemented
-    'time-out': 5000, // Set timeOut and extendedTimeout to 0 to make it sticky
-    'icon-classes': {
-        error: 'toast-error',
-        info: 'toast-info',
-        success: 'toast-success',
-        warning: 'toast-warning'
-    },
-    'body-output-type': '', // Options: '', 'trustedHtml', 'template'
-    'body-template': 'toasterBodyTmpl.html',
-    'icon-class': 'toast-info',
-    'position-class': 'toast-bottom-left',
-    'title-class': 'toast-title',
-    'message-class': 'toast-message'
+       .constant('toasterConfig', {
+        'limit': 0,                   // limits max number of toasts 
+        'tap-to-dismiss': true,
+        'newest-on-top': true,
+        //'fade-in': 1000,            // done in css
+        //'on-fade-in': undefined,    // not implemented
+        //'fade-out': 1000,           // done in css
+        // 'on-fade-out': undefined,  // not implemented
+        //'extended-time-out': 1000,    // not implemented
+        'time-out': 5000, // Set timeOut and extendedTimeout to 0 to make it sticky
+        'icon-classes': {
+            error: 'toast-error',
+            info: 'toast-info',
+            success: 'toast-success',
+            warning: 'toast-warning'
+        },
+        'body-output-type': '', // Options: '', 'trustedHtml', 'template'
+        'body-template': 'toasterBodyTmpl.html',
+        'icon-class': 'toast-info',
+        'position-class': 'toast-bottom-left',
+        'title-class': 'toast-title',
+        'message-class': 'toast-message'
 })
-.directive('toasterContainer', ['$compile', '$timeout', '$sce', 'toasterConfig', 'toaster',
-function ($compile, $timeout, $sce, toasterConfig, toaster) {
+.directive('toasterContainer', ['$compile', '$timeout', '$sce', 'toasterConfig', 'toaster', function ($compile, $timeout, $sce, toasterConfig, toaster) {
     return {
         replace: true,
         restrict: 'EA',
