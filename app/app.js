@@ -1,32 +1,37 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster', 'ngMap']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
         $routeProvider.
         when('/login', {
             title: 'Login',
-            templateUrl: 'partials/login.html',
-            controller: 'authCtrl'
+            templateUrl: 'app/component/login/login.view.html',
+            controller: 'loginController'
         })
             .when('/logout', {
                 title: 'Logout',
-                templateUrl: 'partials/login.html',
+                templateUrl: 'app/component/login/login.view.html',
                 controller: 'logoutCtrl'
             })
-            .when('/signup', {
-                title: 'Signup',
-                templateUrl: 'partials/signup.html',
-                controller: 'authCtrl'
+            .when('/customer', {
+                title: 'Customer',
+                templateUrl: 'app/component/customer/customer.view.html',
+                controller: 'customerController'
+            })
+            .when('/customers', {
+                title: 'Customers',
+                templateUrl: 'app/component/customer/customers.view.html',
+                controller: 'customerController'
             })
             .when('/dashboard', {
                 title: 'Dashboard',
-                templateUrl: 'partials/dashboard.html',
-                controller: 'authCtrl'
+                templateUrl: 'app/component/dashboard/dashboard.view.html',
+                controller: 'dashboardController'
             })
             .when('/', {
                 title: 'Login',
-                templateUrl: 'partials/login.html',
-                controller: 'authCtrl',
+                templateUrl: 'app/component/login/login.view.html',
+                controller: 'loginController',
                 role: '0'
             })
             .otherwise({
@@ -34,6 +39,7 @@ app.config(['$routeProvider',
             });
   }])
     .run(function ($rootScope, $location, Data) {
+
         $rootScope.logout = function () {
             Data.get('logout').then(function (results) {
                 Data.toast(results);
@@ -43,15 +49,19 @@ app.config(['$routeProvider',
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.authenticated = false;
+            $rootScope.admin = false;
             Data.get('session').then(function (results) {
-                if (results.uid) {
+                if (results.id) {
                     $rootScope.authenticated = true;
-                    $rootScope.uid = results.uid;
+                    $rootScope.id = results.id;
                     $rootScope.name = results.name;
                     $rootScope.email = results.email;
+                    if (results.admin == 1){
+                        $rootScope.admin = true;
+                    }
                 } else {
                     var nextUrl = next.$$route.originalPath;
-                    if (nextUrl == '/signup' || nextUrl == '/login') {
+                    if (nextUrl == '/customers' || nextUrl == '/login' || nextUrl == '/customer') {
 
                     } else {
                         $location.path("/login");

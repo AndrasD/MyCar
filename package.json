@@ -1,0 +1,40 @@
+{
+  "name": "MyCar",
+  "version": "1.0.0",
+  "author": "András Dallos",
+  "description": "Car Location System",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AndrasD/MyCar.git"
+  },
+  "scripts": {
+    "start": "npm run lite",
+    "lite": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@angular/common": "~2.2.1",
+    "@angular/compiler": "~2.2.1",
+    "@angular/core": "~2.2.1",
+    "@angular/forms": "~2.2.1",
+    "@angular/http": "~2.2.1",
+    "@angular/platform-browser": "~2.2.1",
+    "@angular/platform-browser-dynamic": "~2.2.1",
+    "@angular/router": "~3.2.0",
+    "@angular/upgrade": "~2.2.1",
+    "systemjs": "0.19.40",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.26"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/jasmine": "^2.5.36",
+    "@types/node": "^6.0.46",
+    "concurrently": "^3.1.0",
+    "lite-server": "^2.3.0",
+    "typescript": "^2.0.3"
+  }
+}
