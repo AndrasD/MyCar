@@ -39,10 +39,10 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li ng-show="authenticated">
-            <a href="#/dashboard"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
+            <a href="#!/dashboard"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
           </li>
           <li ng-show="admin && authenticated">
-              <a href="#/signup"><i class="fa fa-users"></i>&nbsp; Edit Customers</a>
+              <a href="#!/customers"><i class="fa fa-users"></i>&nbsp; Edit Customers</a>
           </li>
           <li ng-show="authenticated">
             <a href="#/"><i class="fa fa-mobile"></i>&nbsp; SIM-Card</a>
@@ -81,9 +81,9 @@
 </div>
 
 <!-- Libs -->
-<script src="bower_component/angular/angular.min.js"></script>
-<script src="bower_component/angular-route/angular-route.min.js"></script>
-<script src="bower_component/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="js/toaster.js"></script>
 <script src="app/app.js"></script>
 <script src="app/data.js"></script>
@@ -92,6 +92,7 @@
 
 <script src="app/component/login/login.controller.js"></script>
 <script src="app/component/dashboard/dashboard.controller.js"></script>
+<script src="app/component/customer/customer.controller.js"></script>
 
 <script src="bower_components/ngmap/build/scripts/ng-map.min.js"></script>
 <script src="http://maps.google.com/maps/api/js"></script>
