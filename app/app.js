@@ -47,6 +47,10 @@ app.config(['$routeProvider',
             });
         }
 
+        $rootScope.editCustomers = function() {
+             $location.path('customers');
+        }
+
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.authenticated = false;
             $rootScope.admin = false;

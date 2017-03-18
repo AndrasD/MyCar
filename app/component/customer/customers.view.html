@@ -1,16 +1,42 @@
-<div id="customers" class="mainbox col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-2">
+<div class="table-container">
+    <div style="margin:7px">
+        <div class="col-xs-6">
+            <div class="btn-group">
+                <button class="btn btn-success"><span class="fa fa-user-plus"></span>&nbsp; Add new customer</button>
+            </div>
+        </div>
+        <div class="col-xs-4 pull-right input-group">
+            <input type="text" class="form-control" placeholder="Global search">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
     <table st-table="customersCollection" class="table table-striped">
+
         <thead>
             <tr>
-                <th>first name</th>
-                <th>last name</th>
-                <th>birth date</th>
-                <th>balance</th>
-                <th>email</th>
+                <th>Action</th>
+                <th st-sort="firstName">first name</th>
+                <th st-sort="lastName">last name</th>
+                <th st-sort="birthDate">birth date</th>
+                <th st-sort="balance">balance</th>
+                <th st-sort="email">email</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th><input st-search="firstName" class="form-control" placeholder="First name" type="search" /></th>
+                <th><input st-search="lastName" class="form-control" placeholder="Last name" type="search" /></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="row in customersCollection">
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" >
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </td>
                 <td>{{row.firstName}}</td>
                 <td>{{row.lastName}}</td>
                 <td>{{row.birthDate}}</td>
@@ -18,6 +44,7 @@
                 <td>{{row.email}}</td>
             </tr>
         </tbody>
+
     </table>
 </div>
 <!-- /.page-content -->
