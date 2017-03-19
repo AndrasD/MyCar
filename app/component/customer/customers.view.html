@@ -15,16 +15,15 @@
         <thead>
             <tr>
                 <th>Action</th>
-                <th st-sort="firstName">first name</th>
-                <th st-sort="lastName">last name</th>
-                <th st-sort="birthDate">birth date</th>
-                <th st-sort="balance">balance</th>
-                <th st-sort="email">email</th>
+                <th st-sort="name">Name</th>
+                <th st-sort="email">Email</th>
+                <th st-sort="created">Created</th>
+                <th st-sort="admin">admin</th>
             </tr>
             <tr>
                 <th></th>
-                <th><input st-search="firstName" class="form-control" placeholder="First name" type="search" /></th>
-                <th><input st-search="lastName" class="form-control" placeholder="Last name" type="search" /></th>
+                <th><input st-search="name" class="form-control" placeholder="Search for name" type="search" /></th>
+                <th><input st-search="email" class="form-control" placeholder="Search for email" type="search" /></th>
             </tr>
         </thead>
         <tbody>
@@ -37,11 +36,10 @@
                         <span class="fa fa-trash"></span>
                     </button>
                 </td>
-                <td>{{row.firstName}}</td>
-                <td>{{row.lastName}}</td>
-                <td>{{row.birthDate}}</td>
-                <td>{{row.balance}}</td>
+                <td>{{row.name}}</td>
                 <td>{{row.email}}</td>
+                <td>{{row.created}}</td>
+                <td>{{row.admin}}</td>
             </tr>
         </tbody>
 

@@ -20,6 +20,15 @@ class DbHandler {
     }
 
     /**
+    * Fetching all record
+    */
+    public function getAllRecord($query) {
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+        return $r;
+    }
+
+
+    /**
     * Creating new record
     */
     public function insertIntoTable($obj, $column_names, $table_name) {

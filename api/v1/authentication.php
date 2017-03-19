@@ -10,6 +10,17 @@ $app->get('/session', function() {
     echoResponse(200, $session);
 });
 
+$app->get('/customers', function() {
+    $db = new DbHandler();
+    $customers = $db->getAllRecord("select id,name,password,email,created,admin from customers");
+    if ($customers->num_rows > 0 ){
+        while($row = $customers->fetch_assoc()){
+            $json[] = $row;
+        }
+    }
+    echoResponse(200, $json);
+});
+
 $app->post('/login', function() use ($app) {
     require_once 'passwordHash.php';
     $r = json_decode($app->request->getBody());
