@@ -47,6 +47,10 @@ app.config(['$routeProvider',
             });
         }
 
+        $rootScope.dashboard = function() {
+             $location.path('dashboard');
+        }
+
         $rootScope.editCustomers = function() {
              $location.path('customers');
         }

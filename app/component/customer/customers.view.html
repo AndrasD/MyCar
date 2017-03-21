@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-xs-4 pull-right input-group">
-            <input type="text" class="form-control" placeholder="Global search">
+            <input type="text" class="form-control" placeholder="Global search" ng-model="searchCustomers">
             <span class="input-group-addon"><i class="fa fa-search"></i></span>
         </div>
     </div>
@@ -15,19 +15,23 @@
         <thead>
             <tr>
                 <th>Action</th>
-                <th st-sort="name">Name</th>
-                <th st-sort="email">Email</th>
-                <th st-sort="created">Created</th>
-                <th st-sort="admin">admin</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th><input st-search="name" class="form-control" placeholder="Search for name" type="search" /></th>
-                <th><input st-search="email" class="form-control" placeholder="Search for email" type="search" /></th>
+                <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+                    <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th><a href="#" ng-click="sortType = 'email'; sortReverse = !sortReverse">Email
+                    <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>Created</th>
+                <th>admin</th>
             </tr>
         </thead>
+
         <tbody>
-            <tr ng-repeat="row in customersCollection">
+            <tr ng-repeat="row in customersCollection | orderBy:sortType:sortReverse | filter:searchCustomers">
                 <td>
                     <button type="button" class="btn btn-xs btn-primary">
                         <span class="fa fa-pencil"></span>

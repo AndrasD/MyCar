@@ -21,7 +21,6 @@
   <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" >
 
   <!-- Application own CSS-s -->
-  <link href="css/style.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
   <link href="css/toaster.css" rel="stylesheet">
   <style>
@@ -49,13 +48,13 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li ng-show="authenticated">
-            <a href="#!/dashboard"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
+              <a ng-click="dashboard();"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
           </li>
           <li ng-show="admin && authenticated">
               <a ng-click="editCustomers();"><i class="fa fa-users"></i>&nbsp; Customers</a>
           </li>
           <li ng-show="authenticated">
-            <a href="#/"><i class="fa fa-mobile"></i>&nbsp; SIM-Card</a>
+              <a href="#/"><i class="fa fa-mobile"></i>&nbsp; SIM-Card</a>
           </li>
         </ul>
 
