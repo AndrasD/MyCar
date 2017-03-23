@@ -12,7 +12,7 @@ $app->get('/session', function() {
 
 $app->get('/customers', function() {
     $db = new DbHandler();
-    $customers = $db->getAllRecord("select id,name,password,email,created,admin from customers");
+    $customers = $db->getAllRecord("select * from customers");
     if ($customers->num_rows > 0 ){
         while($row = $customers->fetch_assoc()){
             $json[] = $row;
