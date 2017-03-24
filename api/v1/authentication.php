@@ -57,7 +57,7 @@ $app->post('/login', function() use ($app) {
     echoResponse(200, $response);
 });
 
-$app->post('/signUp', function() use ($app) {
+$app->post('/addCustomer', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
     verifyRequiredParams(array('email', 'name', 'password'),$r->customer);
@@ -78,14 +78,14 @@ $app->post('/signUp', function() use ($app) {
             $response["status"] = "success";
             $response["message"] = "User account created successfully";
             $response["id"] = $result;
-            if (!isset($_SESSION)) {
+/*            if (!isset($_SESSION)) {
                 session_start();
             }
             $_SESSION['id'] = $response["id"];
             $_SESSION['phone'] = $phone;
             $_SESSION['name'] = $name;
             $_SESSION['email'] = $email;
-            echoResponse(200, $response);
+*/            echoResponse(200, $response);
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
