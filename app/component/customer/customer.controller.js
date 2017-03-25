@@ -12,7 +12,7 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
     getCustomers();
 
     function getCustomers(){
-        Data.get('customers').then(function (results) {
+        Data.get('getOwnCustomers', {id: $rootScope.$id}).then(function (results) {
             $scope.customersCollection = angular.fromJson(results);
         });       
     }

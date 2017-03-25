@@ -10,9 +10,11 @@ $app->get('/session', function() {
     echoResponse(200, $session);
 });
 
-$app->get('/customers', function() {
+$app->get('/getOwnCustomers', function() use ($app) {
     $db = new DbHandler();
-    $customers = $db->getAllRecord("select * from customers");
+    $r = json_decode($app->request->getBody());
+    $id = $r->id->id;
+    $customers = $db->getAllRecord("select * from customers where owner='$id'");
     if ($customers->num_rows > 0 ){
         while($row = $customers->fetch_assoc()){
             $json[] = $row;

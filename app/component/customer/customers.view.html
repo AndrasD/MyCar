@@ -118,8 +118,8 @@
             <div class="modal-body">
                 <form name="customerForm" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-sm-5 control-label" for="email">Email</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label" for="email">Email</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Email" name="email" ng-model="customer.email" focus/>
                                 <span ng-show="customerForm.email.$error.email" class="help-inline">Email is not valid</span>
@@ -127,8 +127,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label no-padding-right" for="password">Password</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label no-padding-right" for="password">Password</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name = "password" placeholder="Password" ng-model="customer.password" required/>
                                 <small class="errorMessage" data-ng-show="customerForm.password.$dirty && customerForm.password.$invalid"> Enter Password.</small>
@@ -136,8 +136,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label no-padding-right" for="password2">Confirm Password</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label no-padding-right" for="password2">Confirm Password</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name="password2" placeholder="Password Again" ng-model="customer.password2" password-match="customer.password" required/>                                
                                 <small class="errorMessage" data-ng-show="customerForm.password2.$dirty && customerForm.password2.$error.required"> Enter password again.</small>
@@ -146,24 +146,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label no-padding-right" for="name">Name</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label no-padding-right" for="name">Name</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Name" ng-model="customer.name" />
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label no-padding-right" for="phone">Phone</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label no-padding-right" for="phone">Phone</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="customer.phone"/>
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label no-padding-right" for="address">Address</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-4 control-label no-padding-right" for="address">Address</label>
+                        <div class="col-sm-8">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Address" ng-model="customer.address" />
                             </span>
