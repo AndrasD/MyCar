@@ -64,9 +64,7 @@ app.config(['$routeProvider',
                     $rootScope.id = results.id;
                     $rootScope.name = results.name;
                     $rootScope.email = results.email;
-                    if (results.admin == 1){
-                        $rootScope.admin = true;
-                    }
+                    $rootScope.admin = results.admin;
                 } else {
                     var nextUrl = next.$$route.originalPath;
                     if (nextUrl == '/customers' || nextUrl == '/login' || nextUrl == '/customer') {

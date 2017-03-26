@@ -16,32 +16,32 @@
                 <table id="mytable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Action</th>
-                            <th>
+                            <th class="col-sm-1">Action</th>
+                            <th class="col-sm-3" >
                                 <a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
                                 <span ng-show="sortType == 'name' && !sortReverse" class="pull-right fa fa-sort-amount-asc"></span>
                                 <span ng-show="sortType == 'name' && sortReverse" class="pull-right fa fa-sort-amount-desc"></span>
                                 </a>
                             </th>
-                            <th>
+                            <th class="col-sm-2" >
                                 <a ng-click="sortType = 'email'; sortReverse = !sortReverse">Email
                                 <span ng-show="sortType == 'email' && !sortReverse" class="pull-right fa fa-sort-amount-asc"></span>
                                 <span ng-show="sortType == 'email' && sortReverse" class="pull-right fa fa-sort-amount-desc"></span>
                                 </a>
                             </th>
-                            <th>
+                            <th class="col-sm-2" >
                                 <a ng-click="sortType = 'city'; sortReverse = !sortReverse">City
                                 <span ng-show="sortType == 'city' && !sortReverse" class="pull-right fa fa-sort-amount-asc"></span>
                                 <span ng-show="sortType == 'city' && sortReverse" class="pull-right fa fa-sort-amount-desc"></span>
                                 </a>                                
                             </th>
-                            <th>
+                            <th class="col-sm-2" > 
                                 <a ng-click="sortType = 'address'; sortReverse = !sortReverse">Address
                                 <span ng-show="sortType == 'address' && !sortReverse" class="pull-right fa fa-sort-amount-asc"></span>
                                 <span ng-show="sortType == 'address' && sortReverse" class="pull-right fa fa-sort-amount-desc"></span>
                                 </a>                                
                             </th>
-                            <th>
+                            <th class="col-sm-2" >
                                 <a ng-click="sortType = 'phone'; sortReverse = !sortReverse">Phone
                                 <span ng-show="sortType == 'phone' && !sortReverse" class="pull-right fa fa-sort-amount-asc"></span>
                                 <span ng-show="sortType == 'phone' && sortReverse" class="pull-right fa fa-sort-amount-desc"></span>
@@ -53,8 +53,8 @@
                     <tbody>
                         <tr ng-repeat="customer in customersCollection | orderBy:sortType:sortReverse | filter:searchCustomers">
                             <td>
-                                <a ng-hide="customer.editMode" data-placement="top" data-toggle="tooltip" title="Edit"><button ng-disabled="disableButton" class="btn btn-primary btn-xs" ng-click="editCustomer(customer)"><span class="fa fa-pencil"></span></button></a>
-                                <a ng-hide="customer.editMode" data-placement="top" data-toggle="tooltip" title="Delete"><button ng-disabled="disableButton" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="fa fa-trash"></span></button></a>
+                                <a ng-hide="customer.editMode" data-placement="top" data-toggle="tooltip" title="Edit"><button ng-disabled="disableButton" class="btn btn-primary btn-xs" ng-click="editCustomer(customer)"><span class="fa fa-pencil"></span> Edit</button></a>
+                                <a ng-hide="customer.editMode" data-placement="top" data-toggle="tooltip" title="Delete"><button ng-disabled="disableButton" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="fa fa-trash"></span> Delete</button></a>
                                 <a ng-show="customer.editMode"><button class="btn btn-success btn-xs" ng-click="saveCustomer(customer)"><span class="fa fa-pencil"></span> Save</button></a>
                                 <a ng-show="customer.editMode"><button class="btn btn-warning btn-xs" ng-click="cancel(customer)"><span class="fa fa-times"></span> Cancel</button></a>
                             </td>

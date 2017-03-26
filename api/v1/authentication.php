@@ -10,10 +10,11 @@ $app->get('/session', function() {
     echoResponse(200, $session);
 });
 
-$app->get('/getOwnCustomers', function() use ($app) {
-    $db = new DbHandler();
+$app->post('/getOwnCustomers', function() use ($app) {
     $r = json_decode($app->request->getBody());
-    $id = $r->id->id;
+    $id = $r->user->id;
+//    $id = $app->request()->params('id');
+    $db = new DbHandler();
     $customers = $db->getAllRecord("select * from customers where owner='$id'");
     if ($customers->num_rows > 0 ){
         while($row = $customers->fetch_assoc()){
@@ -40,14 +41,18 @@ $app->post('/login', function() use ($app) {
             $response['id'] = $user['id'];
             $response['email'] = $user['email'];
             $response['createdAt'] = $user['created'];
-            $response['admin'] = $user['admin'];
+            if ($user['admin'] == 1) {
+                $response['admin'] = true;
+            } else {
+                $response['admin'] = false;                
+            }
             if (!isset($_SESSION)) {
                 session_start();
             }
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $email;
             $_SESSION['name'] = $user['name'];
-            $_SESSION['admin'] = $user['admin'];
+            $_SESSION['admin'] = $response['admin'];
         } else {
             $response['status'] = "error";
             $response['message'] = 'Login failed. Incorrect credentials';

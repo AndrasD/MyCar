@@ -9,10 +9,12 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
     $scope.sortReverse  = false;      // set the default sort reverse
     $scope.searchCustomers  = '';     // set the default search/filter term
 
+    var user = $rootScope.actUser;
+
     getCustomers();
 
     function getCustomers(){
-        Data.get('getOwnCustomers', {id: $rootScope.$id}).then(function (results) {
+        Data.post('getOwnCustomers', {user: user}).then(function (results) {
             $scope.customersCollection = angular.fromJson(results);
         });       
     }
