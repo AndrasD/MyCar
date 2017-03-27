@@ -55,6 +55,10 @@ app.config(['$routeProvider',
              $location.path('customers');
         }
 
+        if (angular.isUndefined($rootScope.actUser)) {
+            $rootScope.actUser = {};
+        }
+
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.authenticated = false;
             $rootScope.admin = false;

@@ -1,7 +1,6 @@
 app.controller('loginController', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     //initially set those objects to null to avoid undefined error
     $scope.login = {};
-    $rootScope.actUser = {authenticated:'', admin:'', id:'', name:'', email:'', password:''};
 
     $scope.doLogin = function (customer) {
         Data.post('login', {customer: customer}).then(function (results) {
@@ -12,9 +11,8 @@ app.controller('loginController', function ($scope, $rootScope, $routeParams, $l
                     admin: results.admin, 
                     id: results.id, 
                     name: results.name, 
-                    email: customer.email, 
-                    password: customer.password
-                };
+                    email: results.email
+                };                
                 $location.path('dashboard');
             }
         });

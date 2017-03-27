@@ -3,7 +3,7 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
     var defaultSort = 'name';
 
     $scope.disableButton = false;
-    $scope.customersCollection = [{name: '', email: '', created: '', admin: ''}];
+    $scope.customersCollection = [{}];
 
     $scope.sortType     = defaultSort;     // set the default sort type
     $scope.sortReverse  = false;      // set the default sort reverse
