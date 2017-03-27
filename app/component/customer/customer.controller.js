@@ -40,8 +40,12 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
         if (customer.editMode) {
             customer.editMode = false;
             $scope.disableButton = false;
-            $scope.sort = defaultSort;
+            Data.post('updCustomer', {customer: customer}).then(function (results) {
+                Data.toast(results);
+            });       
         } else {
+            customer.editMode = false;
+            $scope.disableButton = false;
             Data.post('addCustomer', {customer: customer}).then(function (results) {
                 if (results.id) {
                     getCustomers();
