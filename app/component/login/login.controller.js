@@ -6,13 +6,7 @@ app.controller('loginController', function ($scope, $rootScope, $routeParams, $l
         Data.post('login', {customer: customer}).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-                $rootScope.actUser = {
-                    authenticated: true, 
-                    admin: results.admin, 
-                    id: results.id, 
-                    name: results.name, 
-                    email: results.email
-                };                
+                $rootScope.setActUser(results); 
                 $location.path('dashboard');
             }
         });

@@ -35,14 +35,7 @@ $app->post('/addCustomer', function() use ($app) {
             $response["status"] = "success";
             $response["message"] = "User account created successfully";
             $response["id"] = $result;
-/*            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $_SESSION['id'] = $response["id"];
-            $_SESSION['phone'] = $phone;
-            $_SESSION['name'] = $name;
-            $_SESSION['email'] = $email;
-*/            echoResponse(200, $response);
+            echoResponse(200, $response);
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
@@ -69,29 +62,19 @@ $app->post('/updCustomer', function() use ($app) {
     if($isUserExists){
         $tabble_name = "customers";
         $column_names = array('phone', 'name', 'city', 'address');
-        $column_where = 'id';
+        $column_where = "id";
         $result = $db->updateIntoTable($r->customer, $column_names, $tabble_name, $column_where);
         if ($result != NULL) {
             $response["status"] = "success";
             $response["message"] = "User account changed successfully";
             $response["id"] = $result;
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $_SESSION['id'] = $response["id"];
-            $_SESSION['phone'] = $phone;
-            $_SESSION['name'] = $name;
-            $_SESSION['email'] = $email;
             echoResponse(200, $response);
         } else {
             $response["status"] = "error";
-            $response["message"] = "Failed to change customer. Please try again";
+//            $response["message"] = "Failed to change customer. Please try again";
+            $response["message"] = $result;
             echoResponse(201, $response);
         }
-    }else{
-        $response["status"] = "error";
-        $response["message"] = "An user with the provided email not exists!";
-        echoResponse(201, $response);
     }
 });
 

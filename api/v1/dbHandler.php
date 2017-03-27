@@ -81,10 +81,9 @@ class DbHandler {
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
         
         if ($r) {
-            $new_row_id = $this->conn->insert_id;
-            return $new_row_id;
+            return $$where;
         } else {
-            return NULL;
+            return $query;
         }
     }
 
