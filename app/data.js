@@ -7,21 +7,31 @@ app.factory("Data", ['$http', 'toaster', function ($http, toaster) {
         obj.toast = function (data) {
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
+
         obj.get = function (q, object) {
             return $http.get(serviceBase + q, object).then(function (results) {
                 return results.data;
             });
         };
-        obj.post = function (q, object) {
-            return $http.post(serviceBase + q, object).then(function (results) {
+
+        obj.post = function (q, object, header) {
+            return $http.post(serviceBase + q, object, { 
+                    headers: { 
+                        'user': header.user,
+                        'password': header.password,
+                        'token': header.token
+                    }
+                }).then(function (results) {
                 return results.data;
             });
         };
+
         obj.put = function (q, object) {
             return $http.put(serviceBase + q, object).then(function (results) {
                 return results.data;
             });
         };
+        
         obj.delete = function (q) {
             return $http.delete(serviceBase + q).then(function (results) {
                 return results.data;

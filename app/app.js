@@ -42,6 +42,7 @@ app.config(['$routeProvider',
 
         $rootScope.logout = function () {
             Data.get('logout').then(function (results) {
+                sessionStorage.clear();
                 Data.toast(results);
                 $location.path('login');
             });
@@ -55,21 +56,19 @@ app.config(['$routeProvider',
              $location.path('customers');
         }
 
-        $rootScope.setActUser = function(data) {
-            $rootScope.actUser = {
-                authenticated: true, 
-                id: data.id, 
-                name: data.name, 
-                email: data.email,
-                admin: data.admin 
-            };           
-// local storage-ba menteni                 
-        }
+        $rootScope.setActUser = function(data, credential) {
+            $rootScope.actUser = data;
+            $rootScope.actUser.authenticated = true;           
+            // save to sessionStorage
+            sessionStorage.setItem('actUser', JSON.stringify(data));
+            sessionStorage.setItem('credential', JSON.stringify(credential));
+        } 
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            // get from sessionStorage        
+            $rootScope.actUser = JSON.parse(sessionStorage.getItem('actUser'));   
             $rootScope.authenticated = false;
             $rootScope.admin = false;
-// local storage-ból kivenni            
             Data.get('session').then(function (results) {
                 if (results.id) {
                     $rootScope.authenticated = true;

@@ -1,31 +1,21 @@
 app.controller('customerController', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     //initially set those objects to null to avoid undefined error
     var defaultSort = 'name';
-    var user = {};
+    var user = sessionStorage.getItem('actUser');
+    var credential = sessionStorage.getItem('credential');
 
     $scope.disableButton = false;
     $scope.customersCollection = [{}];
 
-    $scope.sortType     = defaultSort;     // set the default sort type
-    $scope.sortReverse  = false;      // set the default sort reverse
-    $scope.searchCustomers  = '';     // set the default search/filter term
+    $scope.sortType     = defaultSort;  // set the default sort type
+    $scope.sortReverse  = false;        // set the default sort reverse
+    $scope.searchCustomers  = '';       // set the default search/filter term
 
     getCustomers();
 
     function getCustomers(){
-        if (angular.isDefined($rootScope.actUser)) {
-            user = $rootScope.actUser;
-        } else {
-            Data.get('session').then(function (results) {
-                if (results.id) {
-                  $rootScope.setActUser(results); 
-                  user = $rootScope.actUser; 
-                }
-            });
-        }
-
-        Data.post('getOwnCustomers', {user: user}).then(function (results) {
-            $scope.customersCollection = angular.fromJson(results);
+        Data.post('getOwnCustomers', {user: user}, credential).then(function (results) {
+            $scope.customersCollection = JSON.parse(results);
         });       
     }
 
@@ -37,7 +27,7 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
 
     //delete customer
     $scope.deleteCustomer = function(customer) {
-        Data.post('delCustomer', {customer: customer}).then(function (results) {
+        Data.post('delCustomer', {customer: customer}, credential).then(function (results) {
             if (results.id) {
                 getCustomers();
             }
@@ -50,13 +40,13 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
         if (customer.editMode) {
             customer.editMode = false;
             $scope.disableButton = false;
-            Data.post('updCustomer', {customer: customer}).then(function (results) {
+            Data.post('updCustomer', {customer: customer}, credential).then(function (results) {
                 Data.toast(results);
             });       
         } else {
             customer.editMode = false;
             $scope.disableButton = false;
-            Data.post('addCustomer', {customer: customer}).then(function (results) {
+            Data.post('addCustomer', {customer: customer}, credential).then(function (results) {
                 if (results.id) {
                     getCustomers();
                 }

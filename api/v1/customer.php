@@ -71,8 +71,7 @@ $app->post('/updCustomer', function() use ($app) {
             echoResponse(200, $response);
         } else {
             $response["status"] = "error";
-//            $response["message"] = "Failed to change customer. Please try again";
-            $response["message"] = $result;
+            $response["message"] = "Failed to change customer. Please try again";
             echoResponse(201, $response);
         }
     }

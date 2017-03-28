@@ -3,10 +3,17 @@ app.controller('loginController', function ($scope, $rootScope, $routeParams, $l
     $scope.login = {};
 
     $scope.doLogin = function (customer) {
-        Data.post('login', {customer: customer}).then(function (results) {
+        var credential = {
+            user: customer.email, 
+            password: customer.password, 
+            token:''
+        };
+
+        Data.post('login', {customer: customer}, credential).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
-                $rootScope.setActUser(results); 
+                credential.token = results.token;
+                $rootScope.setActUser(results, credential); 
                 $location.path('dashboard');
             }
         });
