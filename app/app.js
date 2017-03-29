@@ -57,25 +57,24 @@ app.config(['$routeProvider',
         }
 
         $rootScope.setActUser = function(data, credential) {
-            $rootScope.actUser = data;
-            $rootScope.actUser.authenticated = true;           
+            $rootScope.actUser = {
+                id: data.id,
+                email: data.email,
+                name: data.name,
+                admin: data.admin,
+                authenticated: true
+            };
             // save to sessionStorage
-            sessionStorage.setItem('actUser', JSON.stringify(data));
+            sessionStorage.setItem('actUser', JSON.stringify($rootScope.actUser));
             sessionStorage.setItem('credential', JSON.stringify(credential));
         } 
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             // get from sessionStorage        
             $rootScope.actUser = JSON.parse(sessionStorage.getItem('actUser'));   
-            $rootScope.authenticated = false;
-            $rootScope.admin = false;
             Data.get('session').then(function (results) {
                 if (results.id) {
-                    $rootScope.authenticated = true;
-                    $rootScope.id = results.id;
-                    $rootScope.name = results.name;
-                    $rootScope.email = results.email;
-                    $rootScope.admin = results.admin;
+                    
                 } else {
                     var nextUrl = next.$$route.originalPath;
                     if (nextUrl == '/customers' || nextUrl == '/login' || nextUrl == '/customer') {

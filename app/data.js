@@ -15,13 +15,7 @@ app.factory("Data", ['$http', 'toaster', function ($http, toaster) {
         };
 
         obj.post = function (q, object, header) {
-            return $http.post(serviceBase + q, object, { 
-                    headers: { 
-                        'user': header.user,
-                        'password': header.password,
-                        'token': header.token
-                    }
-                }).then(function (results) {
+            return $http.post(serviceBase + q, object, {headers: header}).then(function (results) {
                 return results.data;
             });
         };

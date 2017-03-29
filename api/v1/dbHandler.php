@@ -64,8 +64,8 @@ class DbHandler {
         
         $c = (array) $obj;
         $keys = array_keys($c);
-        $columns = '';
-        $$where = $c[$column_where];
+//        $where = $c[$column_where];
+        $where = '189';
 
         $query = "UPDATE ".$table_name." SET ";
         foreach($column_names as $desired_key){ // Check the obj received. If blank insert blank into the array.
@@ -74,13 +74,13 @@ class DbHandler {
             }else{
                 $$desired_key = $c[$desired_key];
             }
-            $query = $query."`".$desired_key."` = `".$$desired_key."`,";
+            $query = $query."'".$desired_key."' = '".$$desired_key."',";
         }
-        $query = trim($query,',')." WHERE ".$column_where." = ".$$where;
+        $query = trim($query,',')." WHERE id = ".$where;
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
         
         if ($r) {
-            return $$where;
+            return $r;
         } else {
             return NULL;
         }

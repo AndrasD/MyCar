@@ -1,8 +1,8 @@
 app.controller('customerController', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     //initially set those objects to null to avoid undefined error
     var defaultSort = 'name';
-    var user = sessionStorage.getItem('actUser');
-    var credential = sessionStorage.getItem('credential');
+    var user = JSON.parse(sessionStorage.getItem('actUser'));
+    var credential = JSON.parse(sessionStorage.getItem('credential'));
 
     $scope.disableButton = false;
     $scope.customersCollection = [{}];
@@ -14,8 +14,8 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
     getCustomers();
 
     function getCustomers(){
-        Data.post('getOwnCustomers', {user: user}, credential).then(function (results) {
-            $scope.customersCollection = JSON.parse(results);
+        Data.post('getOwnCustomers', {user: user}, {credential: credential}).then(function (results) {
+            $scope.customersCollection = angular.fromJson(results);
         });       
     }
 
@@ -27,7 +27,7 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
 
     //delete customer
     $scope.deleteCustomer = function(customer) {
-        Data.post('delCustomer', {customer: customer}, credential).then(function (results) {
+        Data.post('delCustomer', {customer: customer}, {credential: credential}).then(function (results) {
             if (results.id) {
                 getCustomers();
             }
@@ -40,13 +40,13 @@ app.controller('customerController', function ($scope, $rootScope, $routeParams,
         if (customer.editMode) {
             customer.editMode = false;
             $scope.disableButton = false;
-            Data.post('updCustomer', {customer: customer}, credential).then(function (results) {
+            Data.post('updCustomer', {customer: customer}, {credential: credential}).then(function (results) {
                 Data.toast(results);
             });       
         } else {
             customer.editMode = false;
             $scope.disableButton = false;
-            Data.post('addCustomer', {customer: customer}, credential).then(function (results) {
+            Data.post('addCustomer', {customer: customer}, {credential: credential}).then(function (results) {
                 if (results.id) {
                     getCustomers();
                 }

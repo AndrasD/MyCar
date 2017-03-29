@@ -9,7 +9,7 @@ app.controller('loginController', function ($scope, $rootScope, $routeParams, $l
             token:''
         };
 
-        Data.post('login', {customer: customer}, credential).then(function (results) {
+        Data.post('login', {customer: customer}, {credential: credential}).then(function (results) {
             Data.toast(results);
             if (results.status == "success") {
                 credential.token = results.token;

@@ -13,7 +13,7 @@ $app->get('/session', function() {
 $app->post('/login', function() use ($app) {
     require_once 'passwordHash.php';
     $r = json_decode($app->request->getBody());
-    $b = json_decode($app->request->getHeaders());
+    // $h = json_decode($app->request->getHeaders());
     verifyRequiredParams(array('email', 'password'),$r->customer);
     $response = array();
     $db = new DbHandler();
@@ -24,7 +24,8 @@ $app->post('/login', function() use ($app) {
     $user = $db->getOneRecord("select id,name,password,email,created,admin from customers where email='$email'");
     if ($user != NULL) {
         if(passwordHash::check_password($user['password'],$password)){
-            if (updateCustomerToken('{"id":'.$user['id'].',"token":'.$token.',"token_expire":'.$tokenExpiration.'}')) {
+                $response['status'] = "success";
+                $response['message'] = 'Logged in successfully.';
                 $response['id'] = $user['id'];
                 $response['name'] = $user['name'];
                 $response['token'] = $token;
@@ -38,7 +39,8 @@ $app->post('/login', function() use ($app) {
                 $_SESSION['email'] = $email;
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['admin'] = $user['admin'];
-            }
+                $_SESSION['token'] = $token;
+                $_SESSION['tokenExpiration'] = $tokenExpiration;
         } else {
             $response['status'] = "error";
             $response['message'] = 'Login failed. Incorrect credentials';
@@ -57,22 +59,5 @@ $app->get('/logout', function() {
     $response["message"] = "Logged out successfully";
     echoResponse(200, $response);
 });
-
-function updateCustomerToken($param){
-    $p = json_decode($param);
-    $tabble_name = "customers";
-    $column_names = array('token', 'token_expire');
-    $column_where = "id";
-    $result = $db->updateIntoTable($p, $column_names, $tabble_name, $column_where);
-    if ($result != NULL) {
-        $response['status'] = "success";
-        $response['message'] = 'Logged in successfully.';
-        return TRUE;
-    } else {
-        $response["status"] = "error";
-        $response['message'] = 'Login failed. Incorrect credentials';
-        return FALSE;
-    }
-}
 
 ?>
