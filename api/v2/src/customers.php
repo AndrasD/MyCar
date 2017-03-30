@@ -48,10 +48,11 @@ $app->post('/customer', function ($request, $response) {
         $response['id'] = $this->db->lastInsertId();
         $response['status'] = "success";
         $response['message'] = "User account created successfully";
-        return $this->response->withJson($response);
     } else {
-
+        $response["status"] = "error";
+        $response["message"] = "An user with the provided email exists!";
     }
+    return $this->response->withJson($response);
 });
 
 // Delete a customer with given id
@@ -75,8 +76,9 @@ $app->put('/customer/[{id}]', function ($request, $response, $args) {
     $sth->bindParam("address", $input['address']);
     $sth->bindParam("city", $input['city']);
     $sth->execute();
-    $input['id'] = $args['id'];
-    return $this->response->withJson($input);
+    $response['status'] = "success";
+    $response['message'] = "User account updated successfully";
+    return $this->response->withJson($response);
 });
 
 

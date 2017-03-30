@@ -6,15 +6,13 @@ $app->get('/session', function($request, $response, $args) {
         session_start();
     }
     $sess = array();
-    if(isset($_SESSION['id']))
+    if (isset($_SESSION['id']))
     {
         $sess["id"] = $_SESSION['id'];
         $sess["name"] = $_SESSION['name'];
         $sess["email"] = $_SESSION['email'];
         $sess["admin"] = $_SESSION['admin'];
-    }
-    else
-    {
+    } else {
         $sess["id"] = '';
         $sess["name"] = 'Guest';
         $sess["email"] = '';
@@ -30,7 +28,7 @@ $app->post('/login', function($request, $response) {
     $sth = $this->db->prepare("SELECT * FROM customer WHERE email=:email");
     $sth->bindParam("email", $input['email']);
     $sth->execute();
-    $user = $sth->fetch();
+    $user = $sth->fetchAll();
     if ($user != NULL) {
         if (passwordHash::check_password($user['password'],$input['password'])) {
             $token = bin2hex(openssl_random_pseudo_bytes(8));  //generate a random token
