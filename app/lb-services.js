@@ -12,7 +12,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 (function(window, angular, undefined) {
   'use strict';
   
-  var urlBase = '/api/v1';
+  var urlBase = 'https://sxs-user-management.herokuapp.com/api';
   var authHeader = 'authorization';
 
   function getHost(url) {
