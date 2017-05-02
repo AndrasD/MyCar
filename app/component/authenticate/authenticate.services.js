@@ -8,9 +8,19 @@ app
       .then(function(response) {
         $rootScope.currentUser = {
           id: response.user.id,
+          name: username,
           tokenId: response.id,
           email: email
         };
+      });
+  }
+
+  function logout() {
+    return User
+      .logout()
+      .$promise
+      .then(function() {
+        $rootScope.currentUser = null;
       });
   }
 
@@ -19,6 +29,7 @@ app
       .getCurrent(function(userResource) {
         $rootScope.currentUser = {
           id: userResource.id,
+          name: userResource.username,
           tokenId: accessTokenId,
           email: userResource.email
         };

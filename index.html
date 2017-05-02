@@ -48,24 +48,24 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li ng-show="actUser.authenticated">
-              <a ng-click="dashboard();"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
+          <li ng-show="currentUser">
+              <a ui-sref="dashboard" ui-sref-active="active"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
           </li>
-          <li ng-show="actUser.admin && actUser.authenticated">
-              <a ng-click="editCustomers();"><i class="fa fa-users"></i>&nbsp; Customers</a>
+          <li ng-show="currentUser && currentUser.admin">
+              <a ui-sref="customers" ui-sref-active="active"><i class="fa fa-users"></i>&nbsp; Customers</a>
           </li>
-          <li ng-show="actUser.authenticated">
-              <a href="#/"><i class="fa fa-mobile"></i>&nbsp; SIM-Card</a>
+          <li ng-show="currentUser">
+              <a ui-sref="simcard" ui-sref-active="active"><i class="fa fa-mobile"></i>&nbsp; SIM-Card</a>
           </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown" ng-show="actUser.authenticated">
-            <a ng-if=class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{actUser.name}}<span class="caret"></span></a>
+          <li class="dropdown" ng-show="currentUser">
+            <a ng-if=class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUser.name}}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#/customer"><span class="fa fa-user"></span>&nbsp; Profile</a></li>
+              <li><a ui-sref="customer({ id: currentUser.id })"><span class="fa fa-user"></span>&nbsp; Profile</a></li>
               <li role="separator" class="divider"></li>
-              <li><a ng-click="logout();"><span class="fa fa-power-off"></span>&nbsp; Logout</a></li>
+              <li><a ui-sref="logout" ui-sref-active="active"><span class="fa fa-power-off"></span>&nbsp; Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -97,8 +97,9 @@
 <script src="app/directives.js"></script>
 <script src="app/lb-services.js"></script>
 
-<!-- Application Controllers -->
-<script src="app/component/login/login.controller.js"></script>
+<!-- Application Controllers & Services -->
+<script src="app/component/authenticate/login.controller.js"></script>
+<script src="app/component/authenticate/login.services.js"></script>
 <script src="app/component/dashboard/dashboard.controller.js"></script>
 <script src="app/component/customer/customer.controller.js"></script>
 

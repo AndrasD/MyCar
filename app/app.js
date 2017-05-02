@@ -1,87 +1,60 @@
 var app = angular.module('myApp', ['ui.router', 'lbServices', 'ngAnimate', 'toaster', 'ngMap']);
 
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.
-        when('/login', {
-            title: 'Login',
-            templateUrl: 'app/component/login/login.view.html',
-            controller: 'loginController'
-        })
-        .when('/logout', {
-            title: 'Logout',
-            templateUrl: 'app/component/login/login.view.html',
-            controller: 'logoutCtrl'
-        })
-        .when('/customer', {
-            title: 'Customer',
-            templateUrl: 'app/component/customer/customer.view.html',
-            controller: 'customerController'
-        })
-        .when('/customers', {
-            title: 'Customers',
-            templateUrl: 'app/component/customer/customers.view.html',
-            controller: 'customerController'
-        })
-        .when('/dashboard', {
-            title: 'Dashboard',
-            templateUrl: 'app/component/dashboard/dashboard.view.html',
-            controller: 'dashboardController'
-        })
-        .when('/', {
-            title: 'Login',
-            templateUrl: 'app/component/login/login.view.html',
+app
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+        .stat('login', {
+            url: '/login',
+            templateUrl: 'app/component/authenticate/login.view.html',
             controller: 'loginController',
-            role: '0'
+            authenticate: true
         })
-        .otherwise({
-            redirectTo: '/login'
+        .state('logout', {
+            url: '/logout',
+            controller: 'logoutController'
+        })
+        .state('customer', {
+            url: '/customer/:id',
+            templateUrl: 'app/component/customer/customer.view.html',
+            controller: 'customerController',
+            authenticate: true
+        })
+        .state('customers', {
+            url: '/customers',
+            templateUrl: 'app/component/customer/customers.view.html',
+            controller: 'customerController',
+            authenticate: true        
+        })
+        .state('dashboard', {
+            url: '/dashboard',
+            templateUrl: 'app/component/dashboard/dashboard.view.html',
+            controller: 'dashboardController',
+            authenticate: true
     });
+    $urlRouterProvider.otherwise('login');
 }])
-    .run(function ($rootScope, $location, Data) {
+.run(['$rootScope', '$state', 'LoopBackAuth', 'AuthService', function ($rootScope, $state, LoopBackAuth, AuthService) {
 
-        $rootScope.logout = function () {
-            Data.get('logout').then(function (results) {
-                sessionStorage.clear();
-                Data.toast(results);
-                $location.path('login');
-            });
-        }
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams) {
+        // redirect to login page if not logged in
+        if (toState.authenticate && !LoopBackAuth.accessTokenId) {
+            event.preventDefault(); //prevent current page from loading
 
-        $rootScope.dashboard = function () {
-            $location.path('dashboard');
-        }
-
-        $rootScope.editCustomers = function () {
-            $location.path('customers');
-        }
-
-        $rootScope.setActUser = function (data, credential) {
-            $rootScope.actUser = {
-                id: data.id,
-                email: data.email,
-                name: data.name,
-                admin: data.admin,
-                authenticated: true
+            // Maintain returnTo state in $rootScope that is used
+            // by authService.login to redirect to after successful login.
+            $rootScope.returnTo = {
+                state: toState,
+                params: toParams
             };
-            // save to sessionStorage
-            sessionStorage.setItem('actUser', JSON.stringify($rootScope.actUser));
-            sessionStorage.setItem('credential', JSON.stringify(credential));
+
+            $state.go('login');
         }
-
-        $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            // get from sessionStorage        
-            $rootScope.actUser = JSON.parse(sessionStorage.getItem('actUser'));
-            Data.get('session').then(function (results) {
-                if (results.id) {
-
-                } else {
-                    var nextUrl = next.$$route.originalPath;
-                    if (nextUrl == '/customers' || nextUrl == '/login' || nextUrl == '/customer') {
-
-                    } else {
-                        $location.path("/login");
-                    }
-                }
-            });
-        });
     });
+
+    // Get data from localstorage after pagerefresh
+    // and load user data into rootscope.
+    if (LoopBackAuth.accessTokenId && !$rootScope.currentUser) {
+        AuthService.refresh(LoopBackAuth.accessTokenId);
+    }
+    
+}]);

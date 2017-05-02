@@ -1,5 +1,5 @@
 app
-    .controller('loginController', function ($scope, AuthService, $state) {
+.controller('loginController', ['$scope', 'AuthService', '$state', function ($scope, AuthService, $state) {
     //initially set those objects to null to avoid undefined error
     $scope.login = {
       email: 'foo@bar.com',
@@ -22,7 +22,14 @@ app
                 return;
             }
          // or go to the default state after login
-            $state.go('add-review');
+            $state.go('dashboard');
         });
     };
-});
+}])
+
+.controller('logoutController', ['$scope', 'AuthService', '$state', function ($scope, AuthService, $state) {
+    AuthService.logout().then(function () {
+        $state.go('login');
+    });
+}])
+;
