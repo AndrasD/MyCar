@@ -3,7 +3,7 @@ var app = angular.module('myApp', ['ui.router', 'lbServices', 'ngAnimate', 'toas
 app
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .stat('login', {
+        .state('login', {
             url: '/login',
             templateUrl: 'app/component/authenticate/login.view.html',
             controller: 'loginController',

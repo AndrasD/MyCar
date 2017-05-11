@@ -1,5 +1,5 @@
 app
-  .factory('AuthService', ['Reviewer', '$q', '$rootScope', '$state', function(User, $q, $rootScope, $state) {
+  .factory('AuthService', ['Customer', '$q', '$rootScope', '$state', function(User, $q, $rootScope, $state) {
     
   function login(email, password) {
     return User
@@ -39,7 +39,6 @@ app
   return {
     login: login,
     logout: logout,
-    register: register,
     refresh: refresh
   };
   
